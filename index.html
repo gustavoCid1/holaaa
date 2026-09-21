@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vitalis — Consultorio Médico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17302b;
+    --ink-soft:#3d5850;
+    --paper:#f6f3ec;
+    --paper-2:#eeeadf;
+    --line:#d7d0bf;
+    --teal:#1f5c52;
+    --teal-deep:#123d36;
+    --gold:#c79a44;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    color:var(--teal-deep);
+    line-height:1.15;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:10;
+    background:rgba(246,243,236,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:18px;padding-bottom:18px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:1.35rem;
+    font-weight:600;
+    color:var(--teal-deep);
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand svg{width:26px;height:26px;flex:none;}
+  nav{display:flex;align-items:center;gap:28px;}
+  nav a{font-size:0.97rem;color:var(--ink-soft);}
+  nav a:hover{color:var(--teal-deep);}
+  .btn{
+    display:inline-block;
+    background:var(--teal);
+    color:#fdfbf6;
+    padding:11px 22px;
+    border-radius:3px;
+    font-size:0.95rem;
+    font-weight:600;
+    letter-spacing:.2px;
+    transition:background .2s ease;
+  }
+  .btn:hover{background:var(--teal-deep);}
+  .btn-outline{
+    background:transparent;
+    border:1px solid var(--teal);
+    color:var(--teal-deep);
+  }
+  .btn-outline:hover{background:var(--teal);color:#fdfbf6;}
+  .nav-toggle{display:none;}
+
+  /* Hero */
+  .hero{
+    padding:88px 0 96px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.3rem, 4vw, 3.3rem);
+    max-width:11ch;
+  }
+  .hero p.lede{
+    margin-top:20px;
+    font-size:1.12rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+  }
+  .hero .cta-row{
+    margin-top:32px;
+    display:flex;gap:14px;flex-wrap:wrap;
+  }
+  .hero-art{
+    background:var(--teal-deep);
+    border-radius:6px;
+    aspect-ratio:4/5;
+    display:flex;align-items:center;justify-content:center;
+    padding:40px;
+  }
+  .hero-art svg{width:100%;height:100%;}
+
+  .trust-strip{
+    margin-top:56px;
+    display:flex;gap:40px;flex-wrap:wrap;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+  }
+  .trust-strip .stat b{
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    color:var(--teal-deep);
+    display:block;
+    font-weight:500;
+  }
+  .trust-strip .stat span{
+    font-size:0.88rem;
+    color:var(--ink-soft);
+  }
+
+  /* Section shell */
+  section{padding:84px 0;}
+  .section-head{
+    max-width:56ch;
+    margin-bottom:48px;
+  }
+  .section-head .kicker{
+    font-size:0.92rem;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(1.7rem,2.6vw,2.2rem);}
+  .section-head p{margin-top:14px;color:var(--ink-soft);}
+
+  /* Servicios: lista con divisores, no tarjetas idénticas */
+  .services-list{border-top:1px solid var(--line);}
+  .service-row{
+    display:grid;
+    grid-template-columns:56px 1fr auto;
+    gap:24px;
+    align-items:start;
+    padding:28px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .service-row .num{
+    font-family:'Fraunces', serif;
+    color:var(--gold);
+    font-size:1.1rem;
+    padding-top:2px;
+  }
+  .service-row h3{font-size:1.2rem;font-weight:600;}
+  .service-row p{margin-top:6px;color:var(--ink-soft);max-width:52ch;}
+  .service-row .icon{
+    width:56px;height:56px;
+    border-radius:50%;
+    background:var(--paper-2);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .service-row .icon svg{width:24px;height:24px;stroke:var(--teal-deep);}
+
+  /* Sobre el médico */
+  .about{
+    background:var(--paper-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .about .wrap{
+    display:grid;
+    grid-template-columns:0.8fr 1.2fr;
+    gap:56px;
+    align-items:center;
+  }
+  .about-photo{
+    aspect-ratio:1/1;
+    border-radius:6px;
+    background:linear-gradient(160deg, var(--teal) 0%, var(--teal-deep) 100%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .about-photo svg{width:46%;}
+  .about ul{
+    margin-top:22px;
+    display:grid;
+    gap:12px;
+  }
+  .about li{
+    display:flex;gap:10px;
+    color:var(--ink-soft);
+    font-size:0.98rem;
+  }
+  .about li .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--gold);
+    margin-top:9px;flex:none;
+  }
+
+  /* Horarios / contacto */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+  }
+  .info-block{border-top:1px solid var(--line);padding-top:22px;}
+  .info-block h3{font-size:1rem;font-weight:600;margin-bottom:14px;color:var(--teal-deep);}
+  table.hours{width:100%;border-collapse:collapse;font-size:0.96rem;}
+  table.hours td{padding:7px 0;color:var(--ink-soft);}
+  table.hours td:first-child{color:var(--ink);font-weight:500;width:45%;}
+  .contact-list{display:grid;gap:14px;font-size:0.98rem;}
+  .contact-list a{color:var(--ink-soft);}
+  .contact-list a:hover{color:var(--teal-deep);}
+  .contact-list .label{display:block;font-size:0.82rem;color:var(--gold);font-weight:600;margin-bottom:2px;}
+
+  /* CTA final */
+  .cta-final{
+    background:var(--teal-deep);
+    color:#fdfbf6;
+  }
+  .cta-final .wrap{
+    text-align:center;
+    padding:12px 0;
+  }
+  .cta-final h2{color:#fdfbf6;font-size:clamp(1.7rem,3vw,2.4rem);max-width:20ch;margin:0 auto;}
+  .cta-final p{color:#cfe0dc;margin-top:14px;max-width:44ch;margin-left:auto;margin-right:auto;}
+  .cta-final .cta-row{
+    margin-top:30px;justify-content:center;display:flex;gap:14px;flex-wrap:wrap;
+  }
+  .cta-final .btn{background:var(--gold);color:var(--teal-deep);}
+  .cta-final .btn:hover{background:#dcb262;}
+  .cta-final .btn-outline{border-color:#4c766e;color:#fdfbf6;}
+  .cta-final .btn-outline:hover{background:rgba(255,255,255,0.08);}
+
+  footer{padding:36px 0;}
+  footer .wrap{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    font-size:0.86rem;color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    nav{display:none;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-art{order:-1;max-width:280px;margin:0 auto;}
+    .about .wrap{grid-template-columns:1fr;}
+    .about-photo{max-width:220px;margin:0 auto;}
+    .contact-grid{grid-template-columns:1fr;gap:36px;}
+    .service-row{grid-template-columns:44px 1fr;}
+    .service-row .num{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.6-9.5-9C.7 8.2 2.6 4 6.5 4c2 0 3.4 1.1 4 2.2C11.1 5.1 12.5 4 14.5 4 18.4 4 20.3 8.2 18.5 12 16 16.4 12 21 12 21z"/><path d="M4 12h3l1.5-3L11 15l1.5-4.5L14 12h6"/></svg>
+      Vitalis
+    </div>
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Sobre nosotros</a>
+      <a href="#contacto">Horarios</a>
+      <a href="#contacto" class="btn">Agendar cita</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Atención médica cercana, clara y a tiempo</h1>
+      <p class="lede">Consulta general, chequeos preventivos y seguimiento de enfermedades crónicas, con citas puntuales y explicaciones que sí se entienden.</p>
+      <div class="cta-row">
+        <a href="#contacto" class="btn">Agendar cita</a>
+        <a href="tel:+520000000000" class="btn btn-outline">Llamar al consultorio</a>
+      </div>
+
+      <div class="trust-strip">
+        <div class="stat"><b>+12</b><span>años de experiencia</span></div>
+        <div class="stat"><b>+3,000</b><span>pacientes atendidos</span></div>
+        <div class="stat"><b>24 h</b><span>respuesta por WhatsApp</span></div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#f6f3ec" stroke-width="2.2" stroke-linecap="round">
+        <path d="M20 100 h35 l12 -34 l16 68 l14 -46 l10 22 h73" opacity="0.95"/>
+        <circle cx="100" cy="100" r="70" stroke-width="1" opacity="0.35"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Servicios</div>
+      <h2>Lo que atendemos en el consultorio</h2>
+      <p>Un mismo médico da seguimiento a cada caso, para que no tengas que repetir tu historial en cada visita.</p>
+    </div>
+
+    <div class="services-list">
+      <div class="service-row">
+        <div class="num">01</div>
+        <div>
+          <h3>Consulta general</h3>
+          <p>Diagnóstico y tratamiento de malestares comunes, con receta y explicación del plan a seguir.</p>
+        </div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M6 3v6a4 4 0 0 0 8 0V3M10 15v6M8 21h4"/></svg></div>
+      </div>
+      <div class="service-row">
+        <div class="num">02</div>
+        <div>
+          <h3>Chequeos preventivos</h3>
+          <p>Revisiones anuales, análisis de laboratorio y detección temprana de riesgos.</p>
+        </div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-9-9"/></svg></div>
+      </div>
+      <div class="service-row">
+        <div class="num">03</div>
+        <div>
+          <h3>Control de enfermedades crónicas</h3>
+          <p>Seguimiento de hipertensión, diabetes y otras condiciones que requieren monitoreo constante.</p>
+        </div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></div>
+      </div>
+      <div class="service-row">
+        <div class="num">04</div>
+        <div>
+          <h3>Certificados y estudios</h3>
+          <p>Certificados médicos, órdenes de laboratorio e interpretación de resultados.</p>
+        </div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M7 3h8l4 4v14H7z"/><path d="M9 11h6M9 15h6"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="equipo">
+  <div class="wrap">
+    <div class="about-photo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f6f3ec" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+    </div>
+    <div>
+      <div class="section-head" style="margin-bottom:0;">
+        <div class="kicker">Sobre el consultorio</div>
+        <h2>Dra. Nombre Apellido</h2>
+        <p>Médico general con más de 12 años atendiendo a familias de la zona. Consultas explicadas sin tecnicismos y seguimiento cercano entre citas.</p>
+      </div>
+      <ul>
+        <li><span class="dot"></span>Cédula profesional [000000]</li>
+        <li><span class="dot"></span>Especialidad en medicina familiar</li>
+        <li><span class="dot"></span>Convenios con laboratorios cercanos</li>
+        <li><span class="dot"></span>Atención en español</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Horarios y contacto</div>
+      <h2>Visítanos o agenda por WhatsApp</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="info-block">
+        <h3>Horario de atención</h3>
+        <table class="hours">
+          <tr><td>Lunes – Viernes</td><td>9:00 – 19:00</td></tr>
+          <tr><td>Sábado</td><td>9:00 – 14:00</td></tr>
+          <tr><td>Domingo</td><td>Cerrado</td></tr>
+        </table>
+      </div>
+      <div class="info-block">
+        <h3>Datos de contacto</h3>
+        <div class="contact-list">
+          <a href="tel:+520000000000"><span class="label">Teléfono</span>+52 000 000 0000</a>
+          <a href="https://wa.me/520000000000" target="_blank" rel="noopener"><span class="label">WhatsApp</span>Escribir por WhatsApp</a>
+          <a href="mailto:contacto@vitalis.mx"><span class="label">Correo</span>contacto@vitalis.mx</a>
+          <div><span class="label">Dirección</span>Calle Ejemplo 123, Toluca, Estado de México</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Reserva tu consulta hoy mismo</h2>
+    <p>Respondemos en menos de 24 horas y confirmamos tu horario por WhatsApp o llamada.</p>
+    <div class="cta-row">
+      <a href="https://wa.me/520000000000" target="_blank" rel="noopener" class="btn">Agendar por WhatsApp</a>
+      <a href="tel:+520000000000" class="btn btn-outline">Llamar ahora</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Vitalis — Consultorio Médico</span>
+    <span>Calle Ejemplo 123, Toluca, Edo. Méx.</span>
+  </div>
+</footer>
+
+</body>
+</html>
